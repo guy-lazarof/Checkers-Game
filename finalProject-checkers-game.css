@@ -1,0 +1,41 @@
+h1 {
+  text-align: center;
+  /* background-color: aquamarine; */
+  text-decoration: underline;
+}
+.table {
+  margin: 0 auto;
+  margin-top: 100px;
+  border: 70px solid rgb(183, 104, 75);
+}
+tr {
+  margin: 10px;
+  border: 1px solid black;
+}
+td {
+  margin: 0px;
+  border: 1px solid black;
+  width: 70px;
+  height: 70px;
+}
+.dark-cell {
+  background-color: rgb(147, 44, 7);
+  user-select: none;
+}
+.light-cell {
+  background-color: rgba(00, 00, 00, 0.2);
+  user-select: none;
+}
+img {
+  margin: auto;
+  display: block;
+  height: 70px;
+
+  -webkit-user-drag: none;
+}
+.selected {
+  background-color: rgb(197, 197, 83);
+}
+.possible-move {
+  background-color: rgb(211, 163, 67);
+}
