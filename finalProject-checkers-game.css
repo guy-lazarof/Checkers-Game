@@ -6,7 +6,7 @@ h1 {
 .table {
   margin: 0 auto;
   margin-top: 100px;
-  border: 70px solid rgb(183, 104, 75);
+  border: 50px solid rgb(141, 47, 12);
 }
 tr {
   margin: 10px;
@@ -15,11 +15,11 @@ tr {
 td {
   margin: 0px;
   border: 1px solid black;
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
 }
 .dark-cell {
-  background-color: rgb(147, 44, 7);
+  background-color: rgb(196, 93, 56);
   user-select: none;
 }
 .light-cell {
