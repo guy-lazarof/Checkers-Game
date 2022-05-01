@@ -1,6 +1,6 @@
 class BoardManager {
   constructor() {
-    this.boardSize = BOARD_SIZE;
+    this.boardSize = GameDefinision.BOARD_SIZE;
     this.Board = [];
   }
 
@@ -32,23 +32,60 @@ class BoardManager {
       }
     }
 
-    for (let i = 1; i <= BOARD_SIZE; i += 2) {
-      this.Board[0][i] = new Piece(0, i, PAWN, `black`);
+    for (let i = 1; i <= GameDefinision.BOARD_SIZE; i += 2) {
+      this.Board[0][i] = new Piece(
+        0,
+        i,
+        GameDefinision.PAWN,
+        GameDefinision.BLACK_PLAYER
+      );
       this.Board[0][i].createImage();
-      this.Board[1][i - 1] = new Piece(1, i - 1, PAWN, `black`);
+      this.Board[1][i - 1] = new Piece(
+        1,
+        i - 1,
+        GameDefinision.PAWN,
+        GameDefinision.BLACK_PLAYER
+      );
       this.Board[1][i - 1].createImage();
-      this.Board[2][i] = new Piece(2, i, PAWN, `black`);
+      this.Board[2][i] = new Piece(
+        2,
+        i,
+        GameDefinision.PAWN,
+        GameDefinision.BLACK_PLAYER
+      );
       this.Board[2][i].createImage();
 
-      this.Board[5][i - 1] = new Piece(5, i - 1, PAWN, `white`);
+      this.Board[5][i - 1] = new Piece(
+        5,
+        i - 1,
+        GameDefinision.PAWN,
+        GameDefinision.WHITE_PLAYER
+      );
       this.Board[5][i - 1].createImage();
-      this.Board[6][i] = new Piece(6, i, PAWN, `white`);
+      this.Board[6][i] = new Piece(
+        6,
+        i,
+        GameDefinision.PAWN,
+        GameDefinision.WHITE_PLAYER
+      );
       this.Board[6][i].createImage();
-      this.Board[7][i - 1] = new Piece(7, i - 1, PAWN, `white`);
+      this.Board[7][i - 1] = new Piece(
+        7,
+        i - 1,
+        GameDefinision.PAWN,
+        GameDefinision.WHITE_PLAYER
+      );
       this.Board[7][i - 1].createImage();
     }
-    // console.log(this.Board[0][1]);
-    console.log(this.Board[2][1].getPossibleMoves());
+    // this.Board[3][2] = new Piece(
+    //   3,
+    //   2,
+    //   GameDefinision.PAWN,
+    //   GameDefinision.WHITE_PLAYER
+    // );
+    // this.Board[3][2].createImage();
+    // console.log(this.Board);
+    // console.log(this.Board[2][1].getPossibleMoves());
   }
 
   onPieceClick(row, col, cellID) {
@@ -77,15 +114,15 @@ class BoardManager {
       console.log(this.filteredMoves);
       // makes the possible moves array to a possible moves array by ID
       this.filteredMovesByID = this.Board[row][col].Trans_To_Id_Cells();
-      for (let i = 0; i < this.filteredMovesByID.length; i++) {
-        document
-          .getElementById(this.filteredMovesByID[i])
-          .classList.add(`possible-move`);
+      if (this.filteredMovesByID !== undefined) {
+        for (let i = 0; i < this.filteredMovesByID.length; i++) {
+          document
+            .getElementById(this.filteredMovesByID[i])
+            .classList.add(`possible-move`);
+        }
       }
     }
-    // this.filteredMoves= the array of moves that evrey piece can do
-
-    //Add class to possible moves by ID
-    // console.log(this.Board[row][col].Trans_To_Id_Cells());
+    // console.log(this.Board); //know what is the board status for start making  move function
   }
+  // movePiece() {}
 }

@@ -13,17 +13,19 @@ class Piece {
     document.getElementById(id).appendChild(image);
   }
   getOpponent() {
-    if (this.player === WHITE_PLAYER) {
-      return BLACK_PLAYER;
+    if (this.player === GameDefinision.WHITE_PLAYER) {
+      return GameDefinision.BLACK_PLAYER;
     }
-    return WHITE_PLAYER;
+    {
+      return GameDefinision.WHITE_PLAYER;
+    }
   }
 
   getPossibleMoves() {
     this.absoluteMoves = [];
     this.filteredMoves = [];
     this.reallyFilteredMoves = [];
-    if (this.type === PAWN) {
+    if (this.type === GameDefinision.PAWN) {
       if (this.player === `white`) {
         this.absoluteMoves.push([this.row - 1, this.col - 1]);
         this.absoluteMoves.push([this.row - 1, this.col + 1]);
@@ -44,12 +46,35 @@ class Piece {
         absoluteCol <= 7
       ) {
         if (
+          //check if the cell after my opponent it empty
           boardManager.Board[absoluteRow][absoluteCol] !== undefined &&
-          boardManager.Board[absoluteRow][absoluteCol].player !==
-            this.getOpponent()
+          boardManager.Board[absoluteRow][absoluteCol].player ===
+            this.getOpponent() &&
+          boardManager.Board[2 * (absoluteRow - this.row) + this.row][
+            2 * (absoluteCol - this.col) + this.col
+          ] === undefined &&
+          [2 * (absoluteRow - this.row) + this.row] >= 0 &&
+          [2 * (absoluteRow - this.row) + this.row] <= 7 &&
+          [2 * (absoluteCol - this.col) + this.col] >= 0 &&
+          [2 * (absoluteCol - this.col) + this.col] <= 7
         ) {
-          // this.filteredMoves.push(onBoard);
-        } else {
+          this.filteredMoves.push([
+            2 * (absoluteRow - this.row) + this.row,
+            2 * (absoluteCol - this.col) + this.col,
+          ]);
+        }
+        // else if (
+        //   boardManager.Board[absoluteRow][absoluteCol] !== undefined &&
+        //   boardManager.Board[absoluteRow][absoluteCol].player === this.player
+        // ) {
+        //   break;
+        // }
+        else if (
+          boardManager.Board[absoluteRow][absoluteCol] !== undefined &&
+          boardManager.Board[absoluteRow][absoluteCol].player === this.player
+        ) {
+          break;
+        } else if (boardManager.Board[absoluteRow][absoluteCol] === undefined) {
           this.filteredMoves.push(onBoard);
         }
       }
