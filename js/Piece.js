@@ -57,13 +57,13 @@ class Piece {
           boardManager.Board[absoluteRow][absoluteCol] !== undefined &&
           boardManager.Board[absoluteRow][absoluteCol].player ===
             this.getOpponent() &&
+          2 * (absoluteRow - this.row) + this.row >= 0 &&
+          2 * (absoluteRow - this.row) + this.row <= 7 &&
+          2 * (absoluteCol - this.col) + this.col >= 0 &&
+          2 * (absoluteCol - this.col) + this.col <= 7 &&
           boardManager.Board[2 * (absoluteRow - this.row) + this.row][
             2 * (absoluteCol - this.col) + this.col
-          ] === undefined &&
-          [2 * (absoluteRow - this.row) + this.row] >= 0 &&
-          [2 * (absoluteRow - this.row) + this.row] <= 7 &&
-          [2 * (absoluteCol - this.col) + this.col] >= 0 &&
-          [2 * (absoluteCol - this.col) + this.col] <= 7
+          ] === undefined
         ) {
           this.filteredMoves.push([
             2 * (absoluteRow - this.row) + this.row,

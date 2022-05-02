@@ -170,6 +170,18 @@ class BoardManager {
           this.Board[this.prevSelectedPiece.row][
             this.prevSelectedPiece.col
           ].removeImage();
+          if (
+            Math.abs(this.prevSelectedPiece.row - moveRow) === 2 &&
+            Math.abs(this.prevSelectedPiece.col - moveCol) === 2
+          ) {
+            console.log("asd");
+            this.Board[Math.abs(this.prevSelectedPiece.row + moveRow) / 2][
+              Math.abs(this.prevSelectedPiece.col + moveCol) / 2
+            ].removeImage();
+            this.Board[Math.abs(this.prevSelectedPiece.row + moveRow) / 2][
+              Math.abs(this.prevSelectedPiece.col + moveCol) / 2
+            ] = undefined;
+          }
 
           this.Board[this.prevSelectedPiece.row][this.prevSelectedPiece.col] =
             undefined;
@@ -180,17 +192,4 @@ class BoardManager {
       }
     }
   }
-  // moveTo(row, col) {
-  //   // console.log(this.filteredMoves);
-  //   for (const moves of this.filteredMoves) {
-  //     console.log(moves);
-  //     const movesRow = moves[0];
-  //     const movesCol = moves[1];
-  //     if (row === movesRow && col === movesCol) {
-  //       this.Board[row + (row - movesRow)][col + (col - movesCol)] =
-  //         this.Board[row][col];
-  //       this.Board[row][col] = undefined;
-  //     }
-  //   }
-  // }
 }
