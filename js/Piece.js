@@ -19,6 +19,7 @@ class Piece {
       .getElementById(id)
       .removeChild(document.getElementById(id).lastElementChild);
   }
+
   getOpponent() {
     if (this.player === GameDefinision.WHITE_PLAYER) {
       return GameDefinision.BLACK_PLAYER;

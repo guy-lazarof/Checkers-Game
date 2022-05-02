@@ -3,6 +3,9 @@ class BoardManager {
     this.boardSize = GameDefinision.BOARD_SIZE;
     this.Board = [];
     this.prevSelectedPiece = undefined;
+    this.pieces = 0;
+    this.filteredMoves = [];
+    this.selectedPieceID;
   }
 
   initBoard() {
@@ -21,9 +24,15 @@ class BoardManager {
         }
         cell.addEventListener("click", () => this.onPieceClick(i, j, cell.id));
         cell.addEventListener("click", () => this.moveTo(i, j));
+        // cell.addEventListener("click", () => {
+        //   this.onPieceClick(i, j, cell.id);
+        //   // this.moveTo(i, j);
+        // });
       }
     }
   }
+  // בהתייחסות לפוסיבול מוב הפונקציה מקבלת פה את המשבצת שאני לוחץ עליה ()
+
   initPieces() {
     this.Board = new Array(this.boardSize);
 
@@ -133,7 +142,20 @@ class BoardManager {
         }
       }
     }
-    // console.log(this.Board); //know what is the board status for start making  move function
+    // for (const moves of this.filteredMoves) {
+    //   console.log(moves);
+    //   const movesRow = moves[0];
+    //   const movesCol = moves[1];
+    //   // if (row === movesRow && col === movesCol) {
+    //   //   this.Board[row][col] =
+    //   //     this.Board[row + (movesRow - row)][col + (movesCol - col)];
+    //   //   this.Board[row][col] = undefined;
+    //   // }
+    //   console.log(this.Board[row][col]);
+    // }
+    // this.Board[0][1] = this.Board[1][0];
+    // this.Board[row][col].row = row + 1;
+    console.log(this.Board[row][col]);
   }
 
   moveTo(row, col) {
@@ -158,4 +180,17 @@ class BoardManager {
       }
     }
   }
+  // moveTo(row, col) {
+  //   // console.log(this.filteredMoves);
+  //   for (const moves of this.filteredMoves) {
+  //     console.log(moves);
+  //     const movesRow = moves[0];
+  //     const movesCol = moves[1];
+  //     if (row === movesRow && col === movesCol) {
+  //       this.Board[row + (row - movesRow)][col + (col - movesCol)] =
+  //         this.Board[row][col];
+  //       this.Board[row][col] = undefined;
+  //     }
+  //   }
+  // }
 }

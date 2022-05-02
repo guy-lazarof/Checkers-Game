@@ -8,6 +8,8 @@ const GameDefinision = {
   WHITE_PLAYER: "white",
   BLACK_PLAYER: "black",
   PAWN: "pawn",
+  counter_black: 12,
+  counter_white: 12,
 };
 let boardManager = new BoardManager();
 function onLoad() {
