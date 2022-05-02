@@ -12,6 +12,7 @@ class Piece {
     image.src = "images/" + this.player + "/" + this.type + ".png";
     document.getElementById(id).appendChild(image);
   }
+
   getOpponent() {
     if (this.player === GameDefinision.WHITE_PLAYER) {
       return GameDefinision.BLACK_PLAYER;

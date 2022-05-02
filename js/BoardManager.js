@@ -2,6 +2,9 @@ class BoardManager {
   constructor() {
     this.boardSize = GameDefinision.BOARD_SIZE;
     this.Board = [];
+    this.pieces = 0;
+    this.filteredMoves = [];
+    this.selectedPieceID;
   }
 
   initBoard() {
@@ -18,10 +21,15 @@ class BoardManager {
         } else {
           cell.className = "light-cell";
         }
-        cell.addEventListener("click", () => this.onPieceClick(i, j, cell.id));
+        cell.addEventListener("click", () => {
+          this.onPieceClick(i, j, cell.id);
+          // this.moveTo(i, j);
+        });
       }
     }
   }
+  // בהתייחסות לפוסיבול מוב הפונקציה מקבלת פה את המשבצת שאני לוחץ עליה ()
+
   initPieces() {
     this.Board = new Array(this.boardSize);
 
@@ -77,15 +85,8 @@ class BoardManager {
       );
       this.Board[7][i - 1].createImage();
     }
-    // this.Board[3][2] = new Piece(
-    //   3,
-    //   2,
-    //   GameDefinision.PAWN,
-    //   GameDefinision.WHITE_PLAYER
-    // );
-    // this.Board[3][2].createImage();
-    // console.log(this.Board);
-    // console.log(this.Board[2][1].getPossibleMoves());
+    console.log(this.Board);
+    console.log(this.Board[0][5].player);
   }
 
   onPieceClick(row, col, cellID) {
@@ -111,7 +112,6 @@ class BoardManager {
       this.selectedPieceID = cellID;
       //array of filtered moves
       this.filteredMoves = this.Board[row][col].getPossibleMoves();
-      console.log(this.filteredMoves);
       // makes the possible moves array to a possible moves array by ID
       this.filteredMovesByID = this.Board[row][col].Trans_To_Id_Cells();
       if (this.filteredMovesByID !== undefined) {
@@ -122,7 +122,32 @@ class BoardManager {
         }
       }
     }
-    // console.log(this.Board); //know what is the board status for start making  move function
+    // for (const moves of this.filteredMoves) {
+    //   console.log(moves);
+    //   const movesRow = moves[0];
+    //   const movesCol = moves[1];
+    //   // if (row === movesRow && col === movesCol) {
+    //   //   this.Board[row][col] =
+    //   //     this.Board[row + (movesRow - row)][col + (movesCol - col)];
+    //   //   this.Board[row][col] = undefined;
+    //   // }
+    //   console.log(this.Board[row][col]);
+    // }
+    // this.Board[0][1] = this.Board[1][0];
+    // this.Board[row][col].row = row + 1;
+    console.log(this.Board[row][col]);
   }
-  // movePiece() {}
+  // moveTo(row, col) {
+  //   // console.log(this.filteredMoves);
+  //   for (const moves of this.filteredMoves) {
+  //     console.log(moves);
+  //     const movesRow = moves[0];
+  //     const movesCol = moves[1];
+  //     if (row === movesRow && col === movesCol) {
+  //       this.Board[row + (row - movesRow)][col + (col - movesCol)] =
+  //         this.Board[row][col];
+  //       this.Board[row][col] = undefined;
+  //     }
+  //   }
+  // }
 }
