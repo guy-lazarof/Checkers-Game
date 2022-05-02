@@ -2,6 +2,7 @@ class BoardManager {
   constructor() {
     this.boardSize = GameDefinision.BOARD_SIZE;
     this.Board = [];
+    this.prevSelectedPiece = undefined;
   }
 
   initBoard() {
@@ -19,6 +20,7 @@ class BoardManager {
           cell.className = "light-cell";
         }
         cell.addEventListener("click", () => this.onPieceClick(i, j, cell.id));
+        cell.addEventListener("click", () => this.moveTo(i, j));
       }
     }
   }
@@ -77,6 +79,7 @@ class BoardManager {
       );
       this.Board[7][i - 1].createImage();
     }
+    console.log(this.Board);
     // this.Board[3][2] = new Piece(
     //   3,
     //   2,
@@ -89,6 +92,8 @@ class BoardManager {
   }
 
   onPieceClick(row, col, cellID) {
+    if (this.moveTo === true) {
+    }
     //remove class to selected piece by ID
     if (this.selectedPieceID !== undefined) {
       document
@@ -107,13 +112,19 @@ class BoardManager {
     }
     // get array of my possible moves and add class by ID
     if (this.Board[row][col] !== undefined) {
+      this.prevSelectedPiece = this.Board[row][col];
+      // console.log(this.prevSelectedPiece);
+
       document.getElementById(cellID).classList.add(`selected`);
       this.selectedPieceID = cellID;
       //array of filtered moves
       this.filteredMoves = this.Board[row][col].getPossibleMoves();
-      console.log(this.filteredMoves);
+      // console.log(this.filteredMoves);
       // makes the possible moves array to a possible moves array by ID
-      this.filteredMovesByID = this.Board[row][col].Trans_To_Id_Cells();
+      this.filteredMovesByID = this.Board[row][col].Trans_To_Id_Cells(
+        this.filteredMoves
+      );
+      // console.log(this.filteredMovesByID);
       if (this.filteredMovesByID !== undefined) {
         for (let i = 0; i < this.filteredMovesByID.length; i++) {
           document
@@ -124,5 +135,27 @@ class BoardManager {
     }
     // console.log(this.Board); //know what is the board status for start making  move function
   }
-  // movePiece() {}
+
+  moveTo(row, col) {
+    if (this.prevSelectedPiece !== undefined) {
+      for (const move of this.prevSelectedPiece.getPossibleMoves()) {
+        const moveRow = move[0];
+        const moveCol = move[1];
+        if (row === moveRow && col === moveCol) {
+          this.Board[row][col] =
+            this.Board[this.prevSelectedPiece.row][this.prevSelectedPiece.col];
+
+          this.Board[this.prevSelectedPiece.row][
+            this.prevSelectedPiece.col
+          ].removeImage();
+
+          this.Board[this.prevSelectedPiece.row][this.prevSelectedPiece.col] =
+            undefined;
+          this.Board[row][col].col = col;
+          this.Board[row][col].row = row;
+          this.Board[moveRow][moveCol].createImage();
+        }
+      }
+    }
+  }
 }

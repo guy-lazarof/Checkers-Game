@@ -10,7 +10,14 @@ class Piece {
     let id = `${this.row}_${this.col}`;
     const image = document.createElement("img");
     image.src = "images/" + this.player + "/" + this.type + ".png";
+    console.log(this.row, this.col);
     document.getElementById(id).appendChild(image);
+  }
+  removeImage() {
+    let id = `${this.row}_${this.col}`;
+    document
+      .getElementById(id)
+      .removeChild(document.getElementById(id).lastElementChild);
   }
   getOpponent() {
     if (this.player === GameDefinision.WHITE_PLAYER) {
@@ -24,7 +31,6 @@ class Piece {
   getPossibleMoves() {
     this.absoluteMoves = [];
     this.filteredMoves = [];
-    this.reallyFilteredMoves = [];
     if (this.type === GameDefinision.PAWN) {
       if (this.player === `white`) {
         this.absoluteMoves.push([this.row - 1, this.col - 1]);
@@ -73,7 +79,7 @@ class Piece {
           boardManager.Board[absoluteRow][absoluteCol] !== undefined &&
           boardManager.Board[absoluteRow][absoluteCol].player === this.player
         ) {
-          break;
+          continue;
         } else if (boardManager.Board[absoluteRow][absoluteCol] === undefined) {
           this.filteredMoves.push(onBoard);
         }
@@ -81,9 +87,9 @@ class Piece {
     }
     return this.filteredMoves;
   }
-  Trans_To_Id_Cells() {
+  Trans_To_Id_Cells(arrayToId) {
     let result = [];
-    for (const filterID of this.getPossibleMoves()) {
+    for (const filterID of arrayToId) {
       result.push(`${filterID[0]}_${filterID[1]}`);
     }
     return result;
