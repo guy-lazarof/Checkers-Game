@@ -142,20 +142,6 @@ class BoardManager {
         }
       }
     }
-    // for (const moves of this.filteredMoves) {
-    //   console.log(moves);
-    //   const movesRow = moves[0];
-    //   const movesCol = moves[1];
-    //   // if (row === movesRow && col === movesCol) {
-    //   //   this.Board[row][col] =
-    //   //     this.Board[row + (movesRow - row)][col + (movesCol - col)];
-    //   //   this.Board[row][col] = undefined;
-    //   // }
-    //   console.log(this.Board[row][col]);
-    // }
-    // this.Board[0][1] = this.Board[1][0];
-    // this.Board[row][col].row = row + 1;
-    console.log(this.Board[row][col]);
   }
 
   moveTo(row, col) {
@@ -174,7 +160,6 @@ class BoardManager {
             Math.abs(this.prevSelectedPiece.row - moveRow) === 2 &&
             Math.abs(this.prevSelectedPiece.col - moveCol) === 2
           ) {
-            console.log("asd");
             this.Board[Math.abs(this.prevSelectedPiece.row + moveRow) / 2][
               Math.abs(this.prevSelectedPiece.col + moveCol) / 2
             ].removeImage();
@@ -188,6 +173,8 @@ class BoardManager {
           this.Board[row][col].col = col;
           this.Board[row][col].row = row;
           this.Board[moveRow][moveCol].createImage();
+
+          game.currentPlayer = this.Board[row][col].getOpponent();
         }
       }
     }

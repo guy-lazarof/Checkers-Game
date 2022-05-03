@@ -10,7 +10,6 @@ class Piece {
     let id = `${this.row}_${this.col}`;
     const image = document.createElement("img");
     image.src = "images/" + this.player + "/" + this.type + ".png";
-    console.log(this.row, this.col);
     document.getElementById(id).appendChild(image);
   }
   removeImage() {
@@ -23,8 +22,7 @@ class Piece {
   getOpponent() {
     if (this.player === GameDefinision.WHITE_PLAYER) {
       return GameDefinision.BLACK_PLAYER;
-    }
-    {
+    } else {
       return GameDefinision.WHITE_PLAYER;
     }
   }
@@ -32,6 +30,11 @@ class Piece {
   getPossibleMoves() {
     this.absoluteMoves = [];
     this.filteredMoves = [];
+
+    if (game.currentPlayer !== this.player || game.winner !== undefined) {
+      return [];
+    }
+
     if (this.type === GameDefinision.PAWN) {
       if (this.player === `white`) {
         this.absoluteMoves.push([this.row - 1, this.col - 1]);
@@ -86,6 +89,7 @@ class Piece {
         }
       }
     }
+
     return this.filteredMoves;
   }
   Trans_To_Id_Cells(arrayToId) {
@@ -96,19 +100,3 @@ class Piece {
     return result;
   }
 }
-// console.log(boardManager.Board[absoluteRow][absoluteCol].player);
-// console.log(
-//   boardManager.Board[absoluteRow][absoluteCol] === undefined ||
-//     boardManager.Board[absoluteRow][absoluteCol].player ===
-//       this.getOpponent()
-// );
-// for (const total of this.filteredMoves) {
-//   const totalRow = total[0];
-//   const totalCol = total[1];
-//   if (boardManager.Board[totalRow][totalCol] === this.getOpponent()) {
-//     this.reallyFilteredMoves.push(total);
-//   }
-//   // console.log(this.getOpponent());
-//   // console.log(boardManager.Board[totalRow][totalCol]);
-//   // return this.reallyFilteredMoves;
-// }
