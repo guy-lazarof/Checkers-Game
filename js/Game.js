@@ -8,7 +8,7 @@ class Game {
   playerSumPossibleMoves() {
     this.filteredPiecesPlayer = [];
     this.possibleMovesPlayer = [];
-    this.eatOpptionPlayer = [];
+    this.eatopponentPlayer = [];
     //chack the whole players on board (type, possible moves)
     for (let i = 0; i < GameDefinision.BOARD_SIZE; i++) {
       for (let j = 0; j < GameDefinision.BOARD_SIZE; j++) {
@@ -31,19 +31,19 @@ class Game {
           Math.abs(totalMove[i][0] - sumPossibleMovesRow) === 2 &&
           Math.abs(totalMove[i][1] - sumPossibleMovesCol) === 2
         ) {
-          this.eatOpptionPlayer.push(totalMove[i]);
+          this.eatopponentPlayer.push(totalMove[i]);
         } else {
           this.possibleMovesPlayer.push(totalMove[i]);
         }
       } //check if there is not an eat moves or "regullar" moves and if not the current player lose
       if (
-        this.eatOpptionPlayer.length === 0 &&
+        this.eatopponentPlayer.length === 0 &&
         this.possibleMovesPlayer.length === 0
       ) {
         //  TODO: make the opponent player winner
       } //if there is an eat move return him
-      if (this.eatOpptionPlayer.length > 0) {
-        return this.eatOpptionPlayer;
+      if (this.eatopponentPlayer.length > 0) {
+        return this.eatopponentPlayer;
       } else {
         //else return "regullar" move
         return this.possibleMovesPlayer;
