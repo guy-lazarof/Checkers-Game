@@ -24,14 +24,9 @@ class BoardManager {
         }
         cell.addEventListener("click", () => this.onPieceClick(i, j, cell.id));
         cell.addEventListener("click", () => this.moveTo(i, j));
-        // cell.addEventListener("click", () => {
-        //   this.onPieceClick(i, j, cell.id);
-        //   // this.moveTo(i, j);
-        // });
       }
     }
   }
-  // בהתייחסות לפוסיבול מוב הפונקציה מקבלת פה את המשבצת שאני לוחץ עליה ()
 
   initPieces() {
     this.Board = new Array(this.boardSize);
@@ -89,20 +84,9 @@ class BoardManager {
       this.Board[7][i - 1].createImage();
     }
     console.log(this.Board);
-    // this.Board[3][2] = new Piece(
-    //   3,
-    //   2,
-    //   GameDefinision.PAWN,
-    //   GameDefinision.WHITE_PLAYER
-    // );
-    // this.Board[3][2].createImage();
-    // console.log(this.Board);
-    // console.log(this.Board[2][1].getPossibleMoves());
   }
 
   onPieceClick(row, col, cellID) {
-    if (this.moveTo === true) {
-    }
     //remove class to selected piece by ID
     if (this.selectedPieceID !== undefined) {
       document
@@ -128,7 +112,6 @@ class BoardManager {
       this.selectedPieceID = cellID;
       //array of filtered moves
       this.filteredMoves = this.Board[row][col].getPossibleMoves();
-      // console.log(this.filteredMoves);
       // makes the possible moves array to a possible moves array by ID
       this.filteredMovesByID = this.Board[row][col].Trans_To_Id_Cells(
         this.filteredMoves
@@ -173,7 +156,7 @@ class BoardManager {
           this.Board[row][col].col = col;
           this.Board[row][col].row = row;
           this.Board[moveRow][moveCol].createImage();
-
+          // game.playerSumPossibleMoves();
           game.currentPlayer = this.Board[row][col].getOpponent();
         }
       }

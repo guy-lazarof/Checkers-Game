@@ -22,7 +22,8 @@ class Piece {
   getOpponent() {
     if (this.player === GameDefinision.WHITE_PLAYER) {
       return GameDefinision.BLACK_PLAYER;
-    } else {
+    }
+    {
       return GameDefinision.WHITE_PLAYER;
     }
   }
@@ -30,11 +31,9 @@ class Piece {
   getPossibleMoves() {
     this.absoluteMoves = [];
     this.filteredMoves = [];
-
     if (game.currentPlayer !== this.player || game.winner !== undefined) {
       return [];
     }
-
     if (this.type === GameDefinision.PAWN) {
       if (this.player === `white`) {
         this.absoluteMoves.push([this.row - 1, this.col - 1]);
@@ -72,14 +71,7 @@ class Piece {
             2 * (absoluteRow - this.row) + this.row,
             2 * (absoluteCol - this.col) + this.col,
           ]);
-        }
-        // else if (
-        //   boardManager.Board[absoluteRow][absoluteCol] !== undefined &&
-        //   boardManager.Board[absoluteRow][absoluteCol].player === this.player
-        // ) {
-        //   break;
-        // }
-        else if (
+        } else if (
           boardManager.Board[absoluteRow][absoluteCol] !== undefined &&
           boardManager.Board[absoluteRow][absoluteCol].player === this.player
         ) {
