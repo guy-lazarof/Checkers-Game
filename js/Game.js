@@ -4,72 +4,49 @@ class Game {
     this.currentPlayer = firstPlayer;
     this.winner = undefined;
   }
-
+  //show the whole possible moves that evrey player have- it make a diffrence between a move of eat opponent that it is a must move, to any other move' and if the player that it is him turn as no possible moves he actually lose (if he as 0 player left he also have no moves so he also lost)
   playerSumPossibleMoves() {
-    this.filteredPiecesWhite = [];
-    this.filteredPiecesBlack = [];
-    this.possibleMovesWhite = [];
-    this.possibleMovesBlack = [];
-    this.eatOpptionWhite = [];
-    this.eatOpptionBlack = [];
-
+    this.filteredPiecesPlayer = [];
+    this.possibleMovesPlayer = [];
+    this.eatOpptionPlayer = [];
+    //chack the whole players on board (type, possible moves)
     for (let i = 0; i < GameDefinision.BOARD_SIZE; i++) {
       for (let j = 0; j < GameDefinision.BOARD_SIZE; j++) {
         if (
           boardManager.Board[i][j] !== undefined &&
-          boardManager.Board[i][j].player === GameDefinision.WHITE_PLAYER
+          boardManager.Board[i][j].player === this.currentPlayer
         ) {
-          this.filteredPiecesWhite.push(boardManager.Board[i][j]);
-        } else if (
-          boardManager.Board[i][j] !== undefined &&
-          boardManager.Board[i][j].player === GameDefinision.BLACK_PLAYER
-        ) {
-          this.filteredPiecesBlack.push(boardManager.Board[i][j]);
+          this.filteredPiecesPlayer.push(boardManager.Board[i][j]);
         }
-        // console.log(boardManager.Board[6][1].player);
       }
     }
-
-    for (const sumPossibleMoves of this.filteredPiecesWhite) {
+    //summary all the current player possible moves
+    for (const sumPossibleMoves of this.filteredPiecesPlayer) {
       const sumPossibleMovesRow = sumPossibleMoves.row;
       const sumPossibleMovesCol = sumPossibleMoves.col;
       const totalMove = sumPossibleMoves.getPossibleMoves();
-
+      //check if there is a "jump"-eat moves and get them to other function
       for (let i = 0; i < totalMove.length; i++) {
         if (
           Math.abs(totalMove[i][0] - sumPossibleMovesRow) === 2 &&
           Math.abs(totalMove[i][1] - sumPossibleMovesCol) === 2
         ) {
-          this.eatOpptionWhite.push(totalMove[i]);
+          this.eatOpptionPlayer.push(totalMove[i]);
         } else {
-          this.possibleMovesWhite.push(totalMove[i]);
+          this.possibleMovesPlayer.push(totalMove[i]);
         }
-      }
-      if (this.eatOpptionWhite.length > 0) {
-        return this.eatOpptionWhite;
+      } //check if there is not an eat moves or "regullar" moves and if not the current player lose
+      if (
+        this.eatOpptionPlayer.length === 0 &&
+        this.possibleMovesPlayer.length === 0
+      ) {
+        //  TODO: make the opponent player winner
+      } //if there is an eat move return him
+      if (this.eatOpptionPlayer.length > 0) {
+        return this.eatOpptionPlayer;
       } else {
-        return this.possibleMovesWhite;
-      }
-    }
-    for (const sumPossibleMoves of this.filteredPiecesBlack) {
-      const sumPossibleMovesRow = sumPossibleMoves.row;
-      const sumPossibleMovesCol = sumPossibleMoves.col;
-      const totalMove = sumPossibleMoves.getPossibleMoves();
-
-      for (let i = 0; i < totalMove.length; i++) {
-        if (
-          Math.abs(totalMove[i][0] - sumPossibleMovesRow) === 2 &&
-          Math.abs(totalMove[i][1] - sumPossibleMovesCol) === 2
-        ) {
-          this.eatOpptionBlack.push(totalMove[i]);
-        } else {
-          this.possibleMovesBlack.push(totalMove[i]);
-        }
-      }
-      if (this.eatOpptionBlack.length > 0) {
-        return this.eatOpptionBlack;
-      } else {
-        return this.possibleMovesBlack;
+        //else return "regullar" move
+        return this.possibleMovesPlayer;
       }
     }
   }

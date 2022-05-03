@@ -7,6 +7,7 @@ class BoardManager {
     this.filteredMoves = [];
     this.selectedPieceID;
   }
+  //Make the table at Html elements by Js
 
   initBoard() {
     const table = document.createElement("table");
@@ -23,8 +24,17 @@ class BoardManager {
           cell.className = "light-cell";
         }
         cell.addEventListener("click", () => this.onPieceClick(i, j, cell.id));
+        //checks by clicking on possible move to where replace the piece
         cell.addEventListener("click", () => this.moveTo(i, j));
       }
+    }
+    //The html pop up message on screen when there is a winner!!!
+    if (game.winner !== undefined) {
+      const winnerPopup = document.createElement("div");
+      const winner = game.winner.charAt(0).toUpperCase() + game.winner.slice(1);
+      winnerPopup.textContent = winner + " player wins!";
+      winnerPopup.classList.add("winner");
+      table.appendChild(winnerPopup);
     }
   }
 
@@ -37,7 +47,7 @@ class BoardManager {
         this.Board[i][j] = undefined;
       }
     }
-
+    //make every row of initial pieces (only on dark cells)+create images of the  pieces
     for (let i = 1; i <= GameDefinision.BOARD_SIZE; i += 2) {
       this.Board[0][i] = new Piece(
         0,
@@ -83,17 +93,15 @@ class BoardManager {
       );
       this.Board[7][i - 1].createImage();
     }
-    console.log(this.Board);
   }
 
   onPieceClick(row, col, cellID) {
-    //remove class to selected piece by ID
+    //remove classes to previous selected piece by ID(if there is)
     if (this.selectedPieceID !== undefined) {
       document
         .getElementById(this.selectedPieceID)
         .classList.remove(`selected`);
     }
-    //add class to selected piece- by ID
 
     //remove class to possible moves by ID
     if (this.filteredMovesByID !== undefined) {
@@ -103,11 +111,12 @@ class BoardManager {
           .classList.remove(`possible-move`);
       }
     }
-    // get array of my possible moves and add class by ID
+    //keep the previous data (so i can change the cell after click on possible move)-move to method
     if (this.Board[row][col] !== undefined) {
       this.prevSelectedPiece = this.Board[row][col];
-      // console.log(this.prevSelectedPiece);
 
+      //add class to selected piece- by ID
+      // get array of my possible moves and add class by ID
       document.getElementById(cellID).classList.add(`selected`);
       this.selectedPieceID = cellID;
       //array of filtered moves
@@ -126,37 +135,38 @@ class BoardManager {
       }
     }
   }
-
+  //take the data from the previous click and change the cell data
   moveTo(row, col) {
     if (this.prevSelectedPiece !== undefined) {
       for (const move of this.prevSelectedPiece.getPossibleMoves()) {
         const moveRow = move[0];
         const moveCol = move[1];
+        //remove image by method on Piece.js file
         if (row === moveRow && col === moveCol) {
           this.Board[row][col] =
             this.Board[this.prevSelectedPiece.row][this.prevSelectedPiece.col];
-
           this.Board[this.prevSelectedPiece.row][
             this.prevSelectedPiece.col
           ].removeImage();
           if (
+            //replace the piece on board data
             Math.abs(this.prevSelectedPiece.row - moveRow) === 2 &&
             Math.abs(this.prevSelectedPiece.col - moveCol) === 2
           ) {
             this.Board[Math.abs(this.prevSelectedPiece.row + moveRow) / 2][
               Math.abs(this.prevSelectedPiece.col + moveCol) / 2
-            ].removeImage();
+            ].removeImage(); //Delete the piece that i ate on board data
             this.Board[Math.abs(this.prevSelectedPiece.row + moveRow) / 2][
               Math.abs(this.prevSelectedPiece.col + moveCol) / 2
             ] = undefined;
           }
-
+          //and the most important-change the inner information of the piece it self
           this.Board[this.prevSelectedPiece.row][this.prevSelectedPiece.col] =
             undefined;
           this.Board[row][col].col = col;
           this.Board[row][col].row = row;
           this.Board[moveRow][moveCol].createImage();
-          // game.playerSumPossibleMoves();
+          //after a piece move - the turn change to the opponent
           game.currentPlayer = this.Board[row][col].getOpponent();
         }
       }

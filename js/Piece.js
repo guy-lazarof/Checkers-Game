@@ -5,20 +5,20 @@ class Piece {
     this.type = type;
     this.player = player;
   }
-
+  //cereate an image of piece by row+col(using html get element by id)
   createImage() {
     let id = `${this.row}_${this.col}`;
     const image = document.createElement("img");
     image.src = "images/" + this.player + "/" + this.type + ".png";
     document.getElementById(id).appendChild(image);
-  }
+  } //remove chiled (the image) from it last place(also by id)
   removeImage() {
     let id = `${this.row}_${this.col}`;
     document
       .getElementById(id)
       .removeChild(document.getElementById(id).lastElementChild);
   }
-
+  //change from current player to opponent
   getOpponent() {
     if (this.player === GameDefinision.WHITE_PLAYER) {
       return GameDefinision.BLACK_PLAYER;
@@ -27,13 +27,15 @@ class Piece {
       return GameDefinision.WHITE_PLAYER;
     }
   }
-
+  //get possible moves
+  //if it not your turn or the game is over return empty array possible moves
   getPossibleMoves() {
     this.absoluteMoves = [];
     this.filteredMoves = [];
+    this.eatOpponent = [];
     if (game.currentPlayer !== this.player || game.winner !== undefined) {
       return [];
-    }
+    } //consider te pawn movement (black and white)
     if (this.type === GameDefinision.PAWN) {
       if (this.player === `white`) {
         this.absoluteMoves.push([this.row - 1, this.col - 1]);
@@ -67,11 +69,13 @@ class Piece {
             2 * (absoluteCol - this.col) + this.col
           ] === undefined
         ) {
-          this.filteredMoves.push([
+          //make an array to eatting (individual by piece click)
+          this.eatOpponent.push([
             2 * (absoluteRow - this.row) + this.row,
             2 * (absoluteCol - this.col) + this.col,
           ]);
         } else if (
+          // if my pawn is block me
           boardManager.Board[absoluteRow][absoluteCol] !== undefined &&
           boardManager.Board[absoluteRow][absoluteCol].player === this.player
         ) {
@@ -80,10 +84,11 @@ class Piece {
           this.filteredMoves.push(onBoard);
         }
       }
-    }
-
-    return this.filteredMoves;
-  }
+    } //if there is opponent return possible ate moves
+    if (this.eatOpponent.length > 0) {
+      return this.eatOpponent;
+    } else return this.filteredMoves;
+  } // gets an array and transformation the cell to id
   Trans_To_Id_Cells(arrayToId) {
     let result = [];
     for (const filterID of arrayToId) {

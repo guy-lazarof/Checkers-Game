@@ -1,6 +1,7 @@
-h1 {
+h1,
+h2 {
   text-align: center;
-  /* background-color: aquamarine; */
+
   text-decoration: underline;
 }
 .table {
@@ -31,7 +32,7 @@ img {
   display: block;
   height: 70px;
 
-  -webkit-user-drag: none;
+  -webkit-user-drag: none; /*Make the images of pieces not draggable*/
 }
 .selected {
   background-color: rgb(197, 197, 83);
