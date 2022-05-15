@@ -6,7 +6,4 @@ final project- Cyber4s
 אם יש משהו שלא הסברתי מספיק בבירור בסרטון שאצרף או שרוצים עליו יותר פירוט יותר מאשמח להסביר.
 
 
-קישור לסרטון הסבר- https://drive.google.com/file/d/1_IiB1FXRWIIBEFraio8ULezCkXetW1a3/view?usp=sharing
-
-
 תודה!
