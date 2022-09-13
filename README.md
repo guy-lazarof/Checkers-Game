@@ -1,2 +1,2 @@
 # Checkers Game
-link to app - [Checkers-App](https://cheery-squirrel-e0af82.netlify.app)
+link to app - [Checkers-App](https://checkers-game-vanilla.netlify.app)
