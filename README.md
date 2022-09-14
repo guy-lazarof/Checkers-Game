@@ -1,9 +1,10 @@
-## About 
+## About
 
 After a month in the bootcamp we were given an independent task - to create a checkers game.
 After three intensive days, I finished the project and submitted it.
 
 <b>Brief description of the Checkers game:</b>
+
 ```
 1. Checkers is played on an 8X8 board.
 
@@ -19,7 +20,7 @@ After three intensive days, I finished the project and submitted it.
 
 7. A piece can jump over the opponent’s piece, in order to capture them.
 
-8. A piece cannot jump backwards. You do not need to support multiple 
+8. A piece cannot jump backwards. You do not need to support multiple
 jumps in one turn.
 
 9. When a piece reaches the end of the board, it becomes a queen. Queens can move more than one cell. They can move forward and also backward. After a jump they land as if they were a regular piece. Subsequent jumps cannot move more than one cell.
@@ -27,6 +28,6 @@ jumps in one turn.
 
 <b> I was accepted to the bootcamp based on the project and a personal interview and started a new path.</b>
 
-
 ### [➡️ Open the app ⬅️](https://checkers-game-vanilla.netlify.app)
-<img src="" width="300" hight="300">
+
+<img src="images/gameImg.png" width="300" hight="300">
