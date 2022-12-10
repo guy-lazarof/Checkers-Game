@@ -4,6 +4,7 @@ class Game {
     this.currentPlayer = firstPlayer;
     this.winner = undefined;
   }
+
   //Show the whole possible moves that evrey player have- it make a diffrence between a move of eat opponent that it is a must move, to any other move and if the player that it is own turn has no possible moves he actually lose (if he as 0 player left he also have no moves so he also lost).
   playerSumPossibleMoves() {
     this.filteredPiecesPlayer = [];
@@ -20,6 +21,7 @@ class Game {
         }
       }
     }
+    
     //Summary all the current player possible moves and push to array.
     for (const sumPossibleMoves of this.filteredPiecesPlayer) {
       const sumPossibleMovesRow = sumPossibleMoves.row;

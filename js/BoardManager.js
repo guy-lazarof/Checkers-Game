@@ -7,8 +7,8 @@ class BoardManager {
     this.filteredMoves = [];
     this.selectedPieceID;
   }
-  //Makes the table at Html elements by Js.
 
+  //Makes the table at Html elements by Js.
   initBoard() {
     const table = document.createElement("table");
     document.body.appendChild(table);
@@ -28,6 +28,7 @@ class BoardManager {
         cell.addEventListener("click", () => this.moveTo(i, j));
       }
     }
+
     //Show the html pop up message on screen when there is a winner!!!
     if (game.winner !== undefined) {
       const winnerPopup = document.createElement("div");
@@ -47,6 +48,7 @@ class BoardManager {
         this.Board[i][j] = undefined;
       }
     }
+    
     //Makes every row of initial pieces (only on dark cells) + creates images of the pieces.
     for (let i = 1; i <= GameDefinision.BOARD_SIZE; i += 2) {
       this.Board[0][i] = new Piece(
@@ -111,6 +113,7 @@ class BoardManager {
           .classList.remove(`possible-move`);
       }
     }
+
     //Keeps the data of the previous click (so i can change the cell after click on possible move)-by "moveTo" method.
     if (this.Board[row][col] !== undefined) {
       this.prevSelectedPiece = this.Board[row][col];
@@ -134,6 +137,7 @@ class BoardManager {
       }
     }
   }
+  
   //Takes the data from the previous click and change the cell data.
   moveTo(row, col) {
     if (this.prevSelectedPiece !== undefined) {
